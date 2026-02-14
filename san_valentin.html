@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Quieres ser mi San Valentín? 💝</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Corazones flotantes de fondo */
+        .heart-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(45deg);
+            animation: float 15s infinite;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            left: -10px;
+        }
+
+        .heart::after {
+            top: -10px;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(45deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 60px 50px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 600px;
+            position: relative;
+            z-index: 1;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            color: #e74c3c;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .subtitle {
+            color: #555;
+            font-size: 1.3em;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .question {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 50px;
+            font-weight: bold;
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            min-height: 100px;
+            position: relative;
+        }
+
+        button {
+            padding: 20px 40px;
+            font-size: 1.3em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #btnSi {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        #btnSi:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
+        }
+
+        #btnNo {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #555;
+            position: absolute;
+        }
+
+        /* Pantalla de respuesta afirmativa */
+        .respuesta {
+            display: none;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .respuesta h2 {
+            color: #e74c3c;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            animation: heartBeat 1.5s infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            10%, 30% {
+                transform: scale(1.1);
+            }
+            20%, 40% {
+                transform: scale(1);
+            }
+        }
+
+        .fotos-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .foto-box {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: photoAppear 1s ease-out;
+            border: 5px solid #fff;
+        }
+
+        @keyframes photoAppear {
+            from {
+                transform: rotateY(90deg);
+                opacity: 0;
+            }
+            to {
+                transform: rotateY(0);
+                opacity: 1;
+            }
+        }
+
+        .foto-box:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .foto-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mensaje-final {
+            margin-top: 30px;
+            font-size: 1.2em;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .emoji {
+            font-size: 1.5em;
+            display: inline-block;
+            animation: rotate 2s infinite;
+        }
+
+        @keyframes rotate {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(-10deg);
+            }
+            75% {
+                transform: rotate(10deg);
+            }
+        }
+
+        /* Contador de intentos */
+        .intentos {
+            margin-top: 20px;
+            color: #e74c3c;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        /* Mensaje insistente */
+        .mensaje-insistente {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            opacity: 0;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .mensaje-insistente.show {
+            animation: showMessage 2s ease-out;
+        }
+
+        @keyframes showMessage {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(10px);
+            }
+            10%, 90% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Corazones de fondo -->
+    <div class="heart-bg" id="heartBg"></div>
+
+    <div class="container">
+        <!-- Pantalla inicial -->
+        <div id="pregunta">
+            <h1>¡Hola Monita! 💕</h1>
+            <p class="subtitle">Han sido 3 años increíbles juntos...</p>
+            <p class="question">¿Quieres ser mi San Valentín? 💝</p>
+            
+            <div class="mensaje-insistente" id="mensajeInsistente"></div>
+            
+            <div class="buttons-container">
+                <button id="btnSi">¡Sí! 💖</button>
+                <button id="btnNo">No 😢</button>
+            </div>
+            
+            <p class="intentos" id="intentos"></p>
+        </div>
+
+        <!-- Pantalla de respuesta -->
+        <div id="respuesta" class="respuesta">
+            <h2>¡Sabía que dirías que sí! <span class="emoji">🎉</span></h2>
+            <p style="font-size: 1.4em; color: #e74c3c; margin: 20px 0;">¡Eres el amor de mi vida, Monita! 💕</p>
+            
+            <div class="fotos-container">
+                <div class="foto-box">
+                    <img id="foto1" src="" alt="Nuestra primera foto">
+                </div>
+                <div class="foto-box">
+                    <img id="foto2" src="" alt="Nuestra segunda foto">
+                </div>
+            </div>
+            
+            <p class="mensaje-final">
+                Estos 3 años a tu lado han sido los mejores de mi vida. 
+                Cada día contigo es una nueva aventura llena de amor, risas y felicidad.
+                <br><br>
+                ¡Feliz San Valentín, mi amor! 💝
+                <br>
+                <strong>Te amo con todo mi corazón ❤️</strong>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Crear corazones flotantes
+        function createHearts() {
+            const heartBg = document.getElementById('heartBg');
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heartBg.appendChild(heart);
+            }
+        }
+        createHearts();
+
+        // Variables
+        const btnSi = document.getElementById('btnSi');
+        const btnNo = document.getElementById('btnNo');
+        const pregunta = document.getElementById('pregunta');
+        const respuesta = document.getElementById('respuesta');
+        const intentosElement = document.getElementById('intentos');
+        const mensajeInsistente = document.getElementById('mensajeInsistente');
+        
+        let intentos = 0;
+        let sizeSi = 1.3;
+        let sizeNo = 1.3;
+
+        const mensajes = [
+            "¡Vamos, di que sí! 🥺",
+            "¿En serio? ¡Inténtalo de nuevo! 💔",
+            "Mi corazón se rompe un poquito... 😢",
+            "¡Porfa porfa porfa! 🙏",
+            "Sabes que me amas... 💕",
+            "¡No seas malita! 😭",
+            "¿Por qué me haces esto? 💔",
+            "¡Dale al SÍ, por favor! 🥰",
+            "¡Eres mi vida entera! 💖",
+            "Solo di que sí, Monita linda 😍"
+        ];
+
+        // Función para mostrar mensaje insistente
+        function mostrarMensaje() {
+            const mensaje = mensajes[Math.min(intentos, mensajes.length - 1)];
+            mensajeInsistente.textContent = mensaje;
+            mensajeInsistente.classList.add('show');
+            
+            setTimeout(() => {
+                mensajeInsistente.classList.remove('show');
+            }, 2000);
+        }
+
+        // Botón NO huye del cursor
+        btnNo.addEventListener('mouseover', function() {
+            intentos++;
+            intentosElement.textContent = `Intentos de decir "No": ${intentos} 😅`;
+            
+            mostrarMensaje();
+            
+            // El botón NO se hace más pequeño
+            sizeNo = Math.max(0.5, sizeNo - 0.15);
+            btnNo.style.fontSize = sizeNo + 'em';
+            btnNo.style.padding = (sizeNo * 15) + 'px ' + (sizeNo * 30) + 'px';
+            
+            // El botón SÍ se hace más grande
+            sizeSi += 0.15;
+            btnSi.style.fontSize = sizeSi + 'em';
+            btnSi.style.padding = (sizeSi * 15) + 'px ' + (sizeSi * 30) + 'px';
+            
+            // Mover el botón NO a una posición aleatoria
+            const container = document.querySelector('.buttons-container');
+            const containerRect = container.getBoundingClientRect();
+            
+            const maxX = containerRect.width - btnNo.offsetWidth - 40;
+            const maxY = containerRect.height - btnNo.offsetHeight - 20;
+            
+            const randomX = Math.random() * maxX - maxX/2;
+            const randomY = Math.random() * maxY - maxY/2;
+            
+            btnNo.style.left = randomX + 'px';
+            btnNo.style.top = randomY + 'px';
+            
+            // Después de varios intentos, hacer el botón NO casi invisible
+            if (intentos > 5) {
+                btnNo.style.opacity = Math.max(0.3, 1 - (intentos - 5) * 0.1);
+            }
+        });
+
+        // Click en el botón NO (por si lo logran tocar)
+        btnNo.addEventListener('click', function(e) {
+            e.preventDefault();
+            intentos++;
+            mostrarMensaje();
+            
+            // Hacer que el botón huya aún más lejos
+            btnNo.style.left = (Math.random() * 200 - 100) + 'px';
+            btnNo.style.top = (Math.random() * 100 - 50) + 'px';
+        });
+
+        // Botón SÍ
+        btnSi.addEventListener('click', function() {
+            pregunta.style.display = 'none';
+            respuesta.style.display = 'block';
+            
+            // Aquí debes colocar las rutas de tus fotos
+            // Puedes reemplazar estos valores con las rutas reales de tus imágenes
+            document.getElementById('foto1').src = 'foto1.png'; // Cambia por tu foto 1
+            document.getElementById('foto2').src = 'foto2.png'; // Cambia por tu foto 2
+            
+            // Crear confeti de corazones
+            createConfetti();
+        });
+
+        // Función para crear confeti de corazones
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.width = (Math.random() * 20 + 10) + 'px';
+                    heart.style.height = (Math.random() * 20 + 10) + 'px';
+                    heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    heart.style.background = `rgba(255, ${Math.random() * 100 + 100}, ${Math.random() * 100 + 150}, 0.8)`;
+                    
+                    document.getElementById('heartBg').appendChild(heart);
+                    
+                    setTimeout(() => heart.remove(), 5000);
+                }, i * 50);
+            }
+        }
+    </script>
+</body>
+</html>
